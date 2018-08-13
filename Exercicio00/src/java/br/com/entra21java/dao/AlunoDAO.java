@@ -2,6 +2,7 @@ package br.com.entra21java.dao;
 
 import br.com.entra21java.bean.AlunoBean;
 import br.com.entra21java.database.Conexao;
+import br.com.entra21java.util.Util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,17 +20,18 @@ public class AlunoDAO {
     public int armazenar(AlunoBean aluno) {
         Connection conexao = Conexao.getConnection();
         if (conexao != null) {
-            String sql = "INSERT INTO alunos(id, nome, codigo_matricula, nota1, nota2, nota3, media, frequencia)"
+            String sql = "INSERT INTO alunos(id, nome, codigo_matricula, nota_1, nota_2, nota_3, media, frequencia)"
                     + "VALUES(?,?,?,?,?,?,?,?)";
             try {
                 PreparedStatement ps = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
                 ps.setInt(1, aluno.getId());
-                ps.setString(2, aluno.getCodigoMatricula());
-                ps.setFloat(3, aluno.getNota1());
-                ps.setFloat(4, aluno.getNota2());
-                ps.setFloat(5, aluno.getNota3());
-                ps.setFloat(6, aluno.getMedia());
-                ps.setByte(7, aluno.getFrequencia());
+                ps.setString(2, aluno.getNome());
+                ps.setString(3, new Util().getRandomCodigoMatricula());
+                ps.setFloat(4, aluno.getNota1());
+                ps.setFloat(5, aluno.getNota2());
+                ps.setFloat(6, aluno.getNota3());
+                ps.setFloat(7, aluno.getMedia());
+                ps.setByte(8, aluno.getFrequencia());
                 ps.execute();
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) {

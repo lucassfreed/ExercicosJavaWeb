@@ -1,5 +1,6 @@
 package br.com.entra21java.web.alunos;
 
+import br.com.entra21java.dao.AlunoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,10 +16,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/alunos/excluir")
 public class AlunoExcluir extends HttpServlet {
 
-    private PrintWriter out;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
-        out = resp.getWriter();
+        int id = Integer.parseInt(req.getParameter("id"));
+        boolean apagou = new AlunoDAO().apagar(id);
+        if (apagou) {
+            resp.getWriter().println("Aluno apagado com sucesso!");
+        } else {
+            resp.getWriter().println("Não foi possível apagar este aluno...");
+        }
     }
 }

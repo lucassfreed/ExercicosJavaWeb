@@ -10,7 +10,7 @@ CREATE TABLE alunos(
     nota_2 FLOAT NOT NULL,
     nota_3 FLOAT NOT NULL,
     media FLOAT NOT NULL,
-    frequencia TINYINT NOT NULL
+    frequencia TINYINT NULL
 );
 INSERT INTO alunos
 (nome, codigo_matricula, nota_1, nota_2, nota_3, media, frequencia) VALUES
